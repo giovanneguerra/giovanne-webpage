@@ -33,14 +33,14 @@ gulp.task('sass', function(){
                 this.emit('end');
             }
         }))
-        .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sass().on('error', sass.logError))
-        .pipe(sourcemaps.write())
         .pipe(autoprefixer('last 2 versions'))
         .pipe(gulp.dest('./assets/stylesheets/'))
         .pipe(concat('main.css'))
         .pipe(cssNano())
         .pipe(rename({suffix:'.min'}))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/stylesheets/'))
         .pipe(browserSync.reload({stream:true}));;
 });
