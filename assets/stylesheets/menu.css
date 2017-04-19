@@ -1,0 +1,175 @@
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-black-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-black-webfont.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-bold-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-bold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-bolditalic-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-bolditalic-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-extralight-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-extralight-webfont.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-extralightitalic-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-extralightitalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-italic-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-italic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-light-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-light-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-lightitalic-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-lightitalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-regular-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-regular-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-semibold-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-semibold-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'titillium_web';
+    src: url('../fonts/titilliumweb-semibolditalic-webfont.woff2') format('woff2'), url('../fonts/titilliumweb-semibolditalic-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+}
+
+.navBar {
+    background-color: #53354A;
+    position: fixed;
+    min-width: 100%;
+}
+
+.logo {
+    background-color: #F91B58;
+    border-radius: 50px;
+    display: inline-block;
+    height: 45px;
+    margin: 1em 0;
+    width: 45px;
+}
+
+.wrapper {
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 0 2%;
+}
+
+nav ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    list-style-type: none;
+    width: 50%;
+}
+nav ul a {
+    color: #F91B58;
+    text-decoration: none;
+    padding: 30px;
+    transition: all .5s ease;
+}
+nav ul a:hover {
+    color: #C80F42;
+    background-color: #7A4B6C;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav #menu-toggle {
+    display: none;
+}
+
+nav .label-toggle {
+    display: none;
+}
+
+nav .wrapper {
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+    nav ul {
+        background-color: #F91B58;
+        display: block;
+        height: 0;
+        list-style-type: none;
+        opacity: 0;
+        text-align: center;
+        transition: all 1s ease;
+        width: 100%;
+        visibility: hidden;
+    }
+    nav li {
+        border-bottom: 2px solid #53354A;
+        color: #53354A;
+        display: block;
+        font-size: 1.5em;
+        padding: 1.68em 0;
+    }
+    nav #menu-toggle:checked ~ ul {
+        opacity: 1;
+        height: 100vh;
+        visibility: visible;
+    }
+    nav .label-toggle {
+        background: linear-gradient(to bottom, #F91B58 0%, #F91B58 20%, transparent 20%, transparent 40%, #F91B58 40%, #F91B58 60%, transparent 60%, transparent 80%, #F91B58 80%, #F91B58 100%);
+        cursor: pointer;
+        display: block;
+        float: right;
+        height: 35px;
+        margin-top: 1em;
+        width: 35px;
+    }
+    nav .wrapper {
+        display: block;
+    }
+}

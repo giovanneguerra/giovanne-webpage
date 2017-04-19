@@ -1,0 +1,39 @@
+@import 'variables.scss';
+body{
+    background: $back_color;
+    color: $main_color;
+    font-family: 'titillium_web', sans-serif;
+}
+::selection{
+    background-color: $second_color;
+    color: $main_color;
+    opacity: 1;
+}
+.section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    max-width: 50%;
+}
+.row{
+    width: auto;
+}
+.item{
+    padding: 5px;
+    color: white;
+}
+.hero{
+    text-align: center;
+    min-height: 94vh;
+    .hero__title{
+      font-size: 5em;
+      font-weight: 700;
+    }
+    .hero__item{
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;;
+    }
+}

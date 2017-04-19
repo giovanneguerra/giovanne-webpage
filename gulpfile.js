@@ -6,7 +6,10 @@ var gulp            =   require('gulp'),
     concat          =   require('gulp-concat'),
     autoprefixer    =   require('gulp-autoprefixer'),
     plumber         =   require('gulp-plumber'),
+    shorthand       =   require('gulp-shorthand'),
     cssNano         =   require('gulp-cssnano'),
+    cssComb         =   require('gulp-csscomb'),
+    cssLint         =   require('gulp-csslint'),
     uglify          =   require('gulp-uglify'),
     rename          =   require('gulp-rename'),
     babel           =   require('gulp-babel'),
@@ -14,12 +17,15 @@ var gulp            =   require('gulp'),
     iife            =   require('gulp-iife'),
     clean           =   require('gulp-clean'),
     imagemin        =   require('gulp-imagemin'),
+    svgo            =   require('gulp-svgo'),
     browserSync     =   require('browser-sync');
 
 //Paths
 var SASS_PATH       =   './assets/sass/**/*.scss';
 var SCRIPTS_PATH    =   './assets/scripts/**/*.js';
 var IMAGES_PATH     =   './assets/images/*.+(png|jpg|jpeg|gif|svg)';
+
+//Destinations
 var SASS_DEST       =   './public/stylesheets/';
 var SCRIPTS_DEST    =   './public/scripts/';
 var IMAGES_DEST     =   './public/images/';
@@ -27,10 +33,8 @@ var IMAGES_DEST     =   './public/images/';
 //Tasks
 //browser-sync
 gulp.task('browser-sync', function() {
-  browserSync({
-    server: {
-       baseDir: "./"
-    }
+  browserSync.init({
+    proxy: "http://localhost:8000"
   });
 });
 
@@ -57,10 +61,16 @@ gulp.task('sass', function(){
             }
         }))
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({
+            includePaths: require('node-reset-scss').includePath
+        }).on('error', sass.logError))
         .pipe(autoprefixer('last 2 versions'))
+        .pipe(cssComb())
+        .pipe(cssLint())
+        .pipe(cssLint.formatter())
         .pipe(gulp.dest('./assets/stylesheets/'))
         .pipe(concat('main.css'))
+        .pipe(shorthand())
         .pipe(cssNano())
         .pipe(rename({suffix:'.min'}))
         .pipe(sourcemaps.write())
@@ -101,6 +111,7 @@ gulp.task('images', function(){
           this.emit('end');
       }
   }))
+  .pipe(svgo())
   .pipe(imagemin([
   	imagemin.gifsicle({interlaced: true}),
   	imagemin.jpegtran({progressive: true}),
@@ -113,8 +124,23 @@ gulp.task('images', function(){
   .pipe(browserSync.reload({stream:true}));
 });
 
+//HTML
+gulp.task('html', function(){
+    gutil.log(gutil.colors.bgOrange.white('HTML has started'));
+    return gulp.src(VIEWS_PATH)
+    .pipe(plumber({
+        errorHandler: function(error){
+            gutil.log(gutil.colors.orange(error.message));
+            this.emit('end');
+        }
+    }))
+    .pipe(htmlmin())
+    .pipe(gulp.dest(VIEWS_DEST))
+    .pipe(browserSync.reload({stream:true}));
+});
+
 //Gulp
-gulp.task('default', ['clean','sass','scripts','images','browser-sync'], function(){
+gulp.task('default', ['images','sass','scripts','browser-sync'], function(){
     gulp.watch(SASS_PATH, ['sass']);
     gulp.watch(SCRIPTS_PATH, ['scripts']);
     gulp.watch(IMAGES_PATH, ['images']);
